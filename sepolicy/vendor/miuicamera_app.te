@@ -1,0 +1,69 @@
+type miuicamera_app, domain;
+
+app_domain(miuicamera_app);
+net_domain(miuicamera_app);
+
+allow miuicamera_app {
+activity_service
+activity_task_service
+audio_service
+audioserver_service
+autofill_service
+batteryproperties_service
+batterystats_service
+bluetooth_manager_service
+cameraserver_service
+content_capture_service
+country_detector_service
+device_policy_service
+device_state_service
+game_service
+gpu_service
+hint_service
+location_service
+mediaextractor_service
+mediametrics_service
+mediaserver_service
+memtrackproxy_service
+netstats_service
+radio_service
+registry_service
+sensitive_content_protection_service
+sensorservice_service
+shortcut_service
+storagestats_service
+surfaceflinger_service
+telecom_service
+thermal_service
+trust_service
+uimode_service
+virtual_device_native_service
+virtual_device_service
+voiceinteraction_service
+}:service_manager find;
+
+allow miuicamera_app {
+hal_misys_hwservice
+vendor_hal_cameraperf_hwservice
+vendor_hal_camerapostproc_xiaomi_hwservice
+vendor_hal_perf_hwservice
+}:hwservice_manager find;
+
+allow miuicamera_app adsprpcd_file:dir r_dir_perms;
+allow miuicamera_app adsprpcd_file:file r_file_perms;
+allow miuicamera_app cgroup:file r_file_perms;
+allow miuicamera_app privapp_data_file:file execute;
+allow miuicamera_app shell_data_file:dir search;
+allow miuicamera_app vendor_camera_data_file:dir search;
+allow miuicamera_app vendor_xdsp_device:chr_file r_file_perms;
+
+binder_call(miuicamera_app, hal_camera_default)
+binder_call(miuicamera_app, hal_misys_default)
+binder_call(miuicamera_app, vendor_hal_perf_default)
+binder_call(miuicamera_app, vendor_hal_qspmhal_default)
+
+dontaudit miuicamera_app default_android_service:service_manager find;
+
+get_prop(miuicamera_app, vendor_camera_sensor_prop)
+get_prop(miuicamera_app, vendor_default_prop)
+get_prop(miuicamera_app, vendor_display_prop)
